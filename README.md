@@ -1,12 +1,15 @@
-# GerenciamentoClientes
+# Gerenciamento de Clientes
 
-Descrição concisa do seu projeto.
+Bem-vindo ao projeto Gerenciamento de Clientes! Este projeto oferece um sistema de CRUD simples para clientes, permitindo a criação, leitura, atualização e exclusão de registros.
 
 ## Índice
 
 1. [Sobre](#sobre)
 2. [Requisitos do Sistema](#requisitos-do-sistema)
 3. [Configuração do Ambiente](#configuração-do-ambiente)
+   - [Configuração do Banco de Dados](#configuração-do-banco-de-dados)
+   - [Migrações do Entity Framework](#migrações-do-entity-framework)
+   - [Instalação de Dependências](#instalação-de-dependências)
 4. [Instalação](#instalação)
 5. [Uso](#uso)
 6. [Estrutura do Projeto](#estrutura-do-projeto)
@@ -16,57 +19,104 @@ Descrição concisa do seu projeto.
 
 ## Sobre
 
-Breve descrição do propósito do seu projeto e seus principais recursos. Inclua informações sobre o que o torna único ou útil.
+O projeto Gerenciamento de Clientes fornece uma solução fácil e eficiente para a gestão de informações de clientes. Com funcionalidades de CRUD, você pode criar, visualizar, editar e excluir registros de clientes de forma intuitiva.
 
 ## Requisitos do Sistema
 
-Lista de requisitos para executar o seu projeto. Isso pode incluir dependências, versões do software, etc.
+- .NET Core 6.0
+- SQL Server (ou SQL Server LocalDB)
 
 ## Configuração do Ambiente
 
-Instruções sobre como configurar o ambiente de desenvolvimento. Pode incluir informações sobre a instalação de dependências, configuração de variáveis de ambiente, etc.
+### Configuração do Banco de Dados
+
+1. Abra o arquivo `appsettings.json` localizado na pasta `GerenciamentoClientes`.
+2. Encontre a seção `ConnectionStrings` e ajuste a string de conexão do SQL Server conforme necessário.
+
+Exemplo:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=SEU-SERVIDOR-SQL;Initial Catalog=SUA-BASE-DE-DADOS;Integrated Security=True;"
+  },
+  ...
+}
+```
+
+### Migrações do Entity Framework
+
+Para aplicar migrações e criar ou atualizar o banco de dados, utilize o seguinte comando:
+
+```bash
+dotnet ef database update
+```
+
+### Instalação de Dependências
+
+Restaure as dependências do projeto com os seguintes comandos:
+
+```bash
+# Restaurar Dependências
+dotnet restore
+
+# Instalar Pacotes do npm (se aplicável)
+npm install
+```
 
 ## Instalação
 
-Guia passo a passo sobre como instalar o seu projeto. Inclua comandos de terminal, se aplicável.
+Siga estes passos para configurar e executar o projeto em seu ambiente local:
 
 ```bash
-# Exemplo de comandos de instalação
-git clone https://github.com/seu-usuario/seu-projeto.git
-cd seu-projeto
-npm install
+# Clonar o Repositório
+git clone https://github.com/seu-usuario/GerenciamentoClientes.git
+cd GerenciamentoClientes
+
+# Configurar o Ambiente (seguindo as instruções acima)
+
+# Instalar Dependências
+dotnet restore
+
+# Aplicar Migrações
+dotnet ef database update
+
+# Iniciar o Projeto
+dotnet run
 ```
 
 ## Uso
 
-Explicação detalhada sobre como usar o seu projeto. Forneça exemplos e comandos para guiar os usuários.
+Após a instalação, acesse a aplicação em `http://localhost:5000` e comece a gerenciar seus clientes!
 
 ## Estrutura do Projeto
 
-Descrição da estrutura de pastas e arquivos importantes do seu projeto.
+A estrutura do projeto é organizada da seguinte forma:
 
 ```plaintext
-seu-projeto/
-|-- src/
-|   |-- main/
-|       |-- java/
-|           |-- SeuCodigo.java
+GerenciamentoClientes/
+|-- GerenciamentoClientes/
+|   |-- Controllers/
+|   |-- Models/
+|   |-- Views/
+|-- Migrations/
+|-- wwwroot/
 |-- README.md
-|-- LICENSE
+|-- ...
 ```
 
 ## Contribuição
 
-Instruções sobre como outros desenvolvedores podem contribuir para o seu projeto. Isso pode incluir informações sobre como relatar problemas, enviar solicitações de pull, etc.
+Sinta-se à vontade para contribuir! Se encontrar problemas ou melhorias, abra uma [issue](https://github.com/seu-usuario/GerenciamentoClientes/issues) ou envie um pull request.
 
 ## Licença
 
-Indicação da licença sob a qual o seu projeto está disponível. Recomenda-se o uso de uma licença open source como MIT, BSD, etc.
+Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## Contato
 
-Informações de contato para os desenvolvedores do projeto. Pode incluir e-mails, links para redes sociais ou outros meios de comunicação.
+Para dúvidas ou informações adicionais, entre em contato conosco:
 
----
-
-Lembre-se de personalizar cada seção conforme necessário. O README deve ser claro, conciso e fornecer todas as informações necessárias para que outros desenvolvedores possam entender, configurar e contribuir para o seu projeto.
+- Nome: Dionathan Freitas
+- Email: diocsfreitas@gmail.com
+- Linkedin: linkedin.com/in/dionathan-freitas-286668149/
