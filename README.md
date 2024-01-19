@@ -70,7 +70,7 @@ Siga estes passos para configurar e executar o projeto em seu ambiente local:
 
 ```bash
 # Clonar o Repositório
-git clone https://github.com/seu-usuario/GerenciamentoClientes.git
+git clone https://github.com/dionathanfreitas/GerenciamentoClientes.git
 cd GerenciamentoClientes
 
 # Configurar o Ambiente (seguindo as instruções acima)
