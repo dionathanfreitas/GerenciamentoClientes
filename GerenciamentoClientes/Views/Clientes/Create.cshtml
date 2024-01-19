@@ -1,16 +1,15 @@
 ﻿@model GerenciamentoClientes.Models.Cliente
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Cliente";
 }
 
-<h1>Create</h1>
-
-<h4>Cliente</h4>
+<h3>Cadastrar Cliente</h3>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+
+    <div class="col-md-6">
+        <form asp-action="Create" id="formCliente">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
@@ -29,20 +28,43 @@
             </div>
             <div class="form-group">
                 <label asp-for="CEP" class="control-label"></label>
-                <input asp-for="CEP" class="form-control" />
+                <div class="input-group">
+                    <input asp-for="CEP" class="form-control" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="btnConsultaCEP">Consultar</button>
+                    </div>
+                </div>
                 <span asp-validation-for="CEP" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
         </form>
+        
+        <div class="col-md-12" style="display: flex; justify-content: space-between;padding-top:1rem;">
+            <div class="form-group col-md-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+            <div class="col-md-3">
+                <a asp-action="Index" class="btn btn-secondary">Voltar para a Lista</a>
+            </div>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="col-md-5 offset-1">
+        <div class="card">
+            <div class="card-header">
+                Informações de Endereço
+            </div>
+            <div class="card-body">
+                <p><strong>Logradouro:</strong> <span id="logradouro">&ensp; </span></p>
+                <p><strong>Bairro:</strong> <span id="bairro">&ensp; </span></p>
+                <p><strong>Cidade:</strong> <span id="cidade">&ensp; </span></p>
+                <p><strong>Estado:</strong> <span id="estado">&ensp; </span></p>
+            </div>
+        </div>
+    </div>
 
+</div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

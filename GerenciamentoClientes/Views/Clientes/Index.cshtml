@@ -1,53 +1,49 @@
 ﻿@model IEnumerable<GerenciamentoClientes.Models.Cliente>
+<div class="newContent" style="min-height: 636px; display: flex; flex-direction: column;">
 
-<div class="container">
-    <div class="row" style="align-items: center;">
-        <div class="col-md-10">
-            <h1 class="display-4">Gerenciamento de Clientes</h1>
+    <h4 class="card-title">ListaClientes</h4>
+    <hr />
+  
+    <!-- Filtros -->
+    <div class="row" style="display: flex; flex-direction: row-reverse;">
+        <div class="mt-2">
+            <span>Total de Registros: @ViewBag.TotalRegistros</span>
         </div>
-        <div class="col-md-2 text-right">
-            <a class="btn btn-outline-success" asp-action="Create"> 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-                </svg>
-                Cadastro
-            </a>
+        <div class="col-md-6 mb-3">
+            <div class="input-group col-md-12">
+                <select class="form-select" id="filtroTipo" style="max-width: 8rem;">
+                    <option value="nome">Nome</option>
+                    <option value="cep">CEP</option>
+                    <option value="email">Email</option>
+                </select>
+                <input type="text" class="form-control col-md-5" id="filtroValor" placeholder="Pesquisar">
+                <button class="btn btn-outline-secondary" type="button" id="btnFiltrar">Filtrar</button>
+            </div>
         </div>
     </div>
 
-    <div class="table-responsive" style="margin-top: 2rem;">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Data de Nascimento</th>
-                    <th>CEP</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+    <!-- Tabela de Clientes -->
+    <div class="table-responsive table" id="tableContent">
+        <partial name="_TabelaClientes" model="@Model" />
+    </div>
+
+    <!-- Paginação -->
+    <div class="d-flex justify-content-center mt-auto">
+        <nav aria-label="...">
+            <ul class="pagination pagination-sm">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DataNascimento)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CEP)</td>
-                        <td style="text-align: center;">
-                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.ClienteId">Detalhes</a>
-                            <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.ClienteId">Editar</a>
-                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ClienteId">Excluir</a>
-                        </td>
-                    </tr>
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="#" onclick="ClienteService.ChangePage(@i)">@i</a>
+                    </li>
                 }
-            </tbody>
-        </table>
+            </ul>
+        </nav>
     </div>
 </div>
 
 @section Scripts {
-    <script>
-        // Adicione aqui qualquer script jQuery ou JavaScript adicional necessário para interatividade.
-    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

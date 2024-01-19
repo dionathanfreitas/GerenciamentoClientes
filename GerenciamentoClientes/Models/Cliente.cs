@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices;
 
 namespace GerenciamentoClientes.Models
 {
@@ -25,14 +24,11 @@ namespace GerenciamentoClientes.Models
         [Column("DataNascimento")]
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [Display(Name = "Data de Nascimento")]
-        [DataType(DataType.Date)]
-        public DateTime? DataNascimento { get; set; }
-
+        public string? DataNascimento { get; set; }
 
         [Column("CEP")]
         [Required(ErrorMessage = "O item {0} é obrigatório!")]
         [Display(Name = "CEP")]
         public string? CEP { get; set; }
     }
-
 }

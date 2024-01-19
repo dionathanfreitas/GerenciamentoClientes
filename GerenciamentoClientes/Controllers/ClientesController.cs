@@ -18,11 +18,68 @@ namespace GerenciamentoClientes.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-              return _context.Cliente != null ? 
-                          View(await _context.Cliente.ToListAsync()) :
-                          Problem("Nenhum resultado encontrado!");
+            const int PageSize = 5;
+
+            int totalClientes = await _context.Cliente.CountAsync();
+            int totalPages = (int)Math.Ceiling((double)totalClientes / PageSize);
+
+            page = Math.Max(1, Math.Min(page, totalPages));
+
+            int startIndex = (page - 1) * PageSize;
+
+            var clientesPaginados = await _context.Cliente
+                .Skip(startIndex)
+                .Take(PageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.TotalRegistros = totalClientes;
+
+            return View(clientesPaginados);
+        }
+
+        [HttpGet]
+        public IActionResult Filtrar(string tipo, string valor, int page = 1)
+        {
+            IQueryable<Cliente> query = _context.Cliente;
+
+            if (!string.IsNullOrEmpty(valor))
+            {
+                switch (tipo)
+                {
+                    case "nome":
+                        query = query.Where(c => c.Nome.Contains(valor));
+                        break;
+                    case "cep":
+                        query = query.Where(c => c.CEP.Contains(valor));
+                        break;
+                    case "email":
+                        query = query.Where(c => c.Email.Contains(valor));
+                        break;
+                }
+            }
+
+            const int PageSize = 5;
+
+            int totalClientes = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalClientes / PageSize);
+
+            page = Math.Max(1, Math.Min(page, totalPages));
+
+            int startIndex = (page - 1) * PageSize;
+
+            var clientesPaginados = query
+                .Skip(startIndex)
+                .Take(PageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            return PartialView("_TabelaClientes", clientesPaginados);
         }
 
         public async Task<IActionResult> Details(int? id)

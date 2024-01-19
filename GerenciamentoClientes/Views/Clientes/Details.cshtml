@@ -1,42 +1,72 @@
 ﻿@model GerenciamentoClientes.Models.Cliente
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<input asp-for="CEP" class="form-control d-none" />
 
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CEP)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CEP)
-        </dd>
-    </dl>
+<div class="container" style="display:flex;">
+    <div class="card col-md-6">
+        <div class="card-body">
+            <h4 class="card-title">Detalhes do Cliente</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-6">Nome</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.Nome)</dd>
+                <hr />
+
+                <dt class="col-sm-6">Email</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.Email)</dd>
+                <hr />
+
+                <dt class="col-sm-6">Data de Nascimento</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.DataNascimento)</dd>
+                <hr />
+
+                <dt class="col-sm-6">CEP</dt>
+                <dd class="col-sm-6">@Html.DisplayFor(model => model.CEP)</dd>
+            </dl>
+        </div>
+
+    </div>
+    <div class="col-md-5 offset-1">
+        <div class="card" style="padding-bottom: 1.5rem;">
+            <div class="card-header">
+                Informações de Endereço
+            </div>
+            <div class="card-body">
+                <p><strong>Logradouro:</strong> <span id="logradouro">&ensp; </span></p>
+                <hr />
+                <p><strong>Bairro:</strong> <span id="bairro">&ensp; </span></p>
+                <hr />
+                <p><strong>Cidade:</strong> <span id="cidade">&ensp; </span></p>
+                <hr />
+                <p><strong>Estado:</strong> <span id="estado">&ensp; </span></p>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ClienteId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="col-md-12" style="display:flex;justify-content: space-between;flex-wrap: nowrap; margin-top:2rem;">
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.ClienteId" class="btn btn-primary">Editar</a>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">Voltar para a Lista</a>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            ClienteService.ConsultaCEP();
+        });
+    </script>
+}
+
